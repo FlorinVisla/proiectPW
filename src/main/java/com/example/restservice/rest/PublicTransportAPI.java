@@ -71,4 +71,10 @@ public class PublicTransportAPI {
 		logger.info("/postRoute was called with routeId {} and vehId {}", routeId, vehId);
 		return routesController.modifyRoute(routeId, vehId);
 	}
+
+	@Operation(summary = "Retrieves information about all the routes", tags = "Routes API endpoints")
+	@GetMapping("/routes")
+	public Route getAllRoutes() {
+		return null;
+	}
 }
