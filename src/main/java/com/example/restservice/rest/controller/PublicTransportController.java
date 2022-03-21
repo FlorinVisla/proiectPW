@@ -20,7 +20,7 @@ public class PublicTransportController {
 		Here we'll do the logic. For this example we'll probably read from the db
 		 */
         return dbSimulator.getTransportVehicles().stream().filter(transportVehicle -> transportVehicle.getId() == id)
-                .findAny().orElse(null);
+                .findAny().orElse(new PublicTransportVehicle(1, 20, 10, "Autobuz de teste"));
     }
 
     public PublicTransportVehicle addVehicleAndReturnId(final long id, final int numberOfSeats, final int gasTank,
