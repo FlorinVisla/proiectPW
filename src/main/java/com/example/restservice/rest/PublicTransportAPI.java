@@ -8,12 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class PublicTransportAPI {
@@ -27,10 +22,10 @@ public class PublicTransportAPI {
 	final Logger logger = LoggerFactory.getLogger(PublicTransportAPI.class);
 
 	@Operation(summary = "Fetches details about a transport based on ID stored in the DB", tags = "Transport API endpoints")
-	@GetMapping("/getTransportVehicle")
-	public PublicTransportVehicle getVehicleById(@RequestParam(value = "id") final long id) {
+	@GetMapping("/Vehicle/{id}")
+	public PublicTransportVehicle getVehicleById(@PathVariable(value = "id") final long id) {
 
-		logger.info("/getTransportVehicle was called with id {}", id);
+		logger.info("/Vehicle was called with id {}", id);
 		return publicTransportController.getVehicleById(id);
 	}
 
