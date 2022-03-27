@@ -22,7 +22,7 @@ public class PublicTransportAPI {
 	final Logger logger = LoggerFactory.getLogger(PublicTransportAPI.class);
 
 	@Operation(summary = "Fetches details about a transport based on ID stored in the DB", tags = "Transport API endpoints")
-	@GetMapping("/Vehicle/{id}")
+	@GetMapping("/vehicle/{id}")
 	public PublicTransportVehicle getVehicleById(@PathVariable(value = "id") final long id) {
 
 		logger.info("/Vehicle was called with id {}", id);
@@ -30,9 +30,9 @@ public class PublicTransportAPI {
 	}
 
 	@Operation(summary = "Adds or changes a transport based on ID stored in the DB", tags = "Transport API endpoints")
-	@PutMapping("/putTransportVehicle")
+	@PutMapping("/vehicle/{id}")
 	public PublicTransportVehicle addVehicleAndReturnId(
-			@RequestParam(value = "id") final long id,
+			@PathVariable(value = "id") final long id,
 			@RequestParam(value = "numberOfSeats", defaultValue = "25") final int numberOfSeats,
 			@RequestParam(value = "gasTank", defaultValue = "80") final int gasTank,
 			@RequestParam(value = "descriptionOfVehicle", defaultValue = "") final String descriptionOfVehicle) {
@@ -42,10 +42,10 @@ public class PublicTransportAPI {
 	}
 
 	@Operation(summary = "Deletes a transport based on ID from the DB", tags = "Transport API endpoints")
-	@DeleteMapping("/deleteTransportVehicle")
-	public PublicTransportVehicle deleteVehicle(@RequestParam(value = "id") final long id) {
+	@DeleteMapping("/vehicle/{id}")
+	public PublicTransportVehicle deleteVehicle(@PathVariable(value = "id") final long id) {
 
-		//todo
+
 		logger.info("/deleteTransportVehicle was called with id {}", id);
 		return null;
 	}

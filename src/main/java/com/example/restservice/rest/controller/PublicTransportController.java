@@ -33,4 +33,11 @@ public class PublicTransportController {
         dbSimulator.getTransportVehicles().add(transportVehicle);
         return transportVehicle;
     }
+
+    public PublicTransportVehicle deleteVehicle(final long id) {
+		/*
+		Here we'll do the logic. For this example we'll probably put stuff in the db
+		 */
+        return null;
+    }
 }
