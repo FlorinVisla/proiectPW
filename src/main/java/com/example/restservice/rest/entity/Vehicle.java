@@ -4,12 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.stereotype.Component;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Statie {
-	private String locatie;
+public class Vehicle {
+
+	private long id;
+	private int numberOfSeats;
+	private int gasTank;
+	private String descriptionOfVehicle;
 }

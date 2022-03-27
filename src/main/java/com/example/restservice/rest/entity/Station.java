@@ -9,10 +9,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class PublicTransportVehicle {
-
-	private long id;
-	private int numberOfSeats;
-	private int gasTank;
-	private String descriptionOfVehicle;
+public class Station {
+	private String locatie;
 }
