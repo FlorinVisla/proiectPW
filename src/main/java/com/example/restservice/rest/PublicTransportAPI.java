@@ -1,6 +1,6 @@
 package com.example.restservice.rest;
 
-import com.example.restservice.rest.entity.PublicTransportVehicle;
+import com.example.restservice.rest.entity.Vehicle;
 import com.example.restservice.rest.entity.Route;
 import com.example.restservice.rest.controller.PublicTransportController;
 import com.example.restservice.rest.controller.RoutesController;
@@ -9,6 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class PublicTransportAPI {
@@ -21,17 +25,25 @@ public class PublicTransportAPI {
 
 	final Logger logger = LoggerFactory.getLogger(PublicTransportAPI.class);
 
-	@Operation(summary = "Fetches details about a transport based on ID stored in the DB", tags = "Transport API endpoints")
+	@Operation(summary = "Fetches details about a vehicle based on ID", tags = "Vehicles endpoints")
 	@GetMapping("/vehicle/{id}")
-	public PublicTransportVehicle getVehicleById(@PathVariable(value = "id") final long id) {
+	public Vehicle getVehicleById(@PathVariable(value = "id") final long id) {
 
 		logger.info("/Vehicle was called with id {}", id);
 		return publicTransportController.getVehicleById(id);
 	}
 
-	@Operation(summary = "Adds or changes a transport based on ID stored in the DB", tags = "Transport API endpoints")
+	@Operation(summary = "Fetches details about all vehicles", tags = "Vehicles endpoints")
+	@GetMapping("/vehicles")
+	public Vehicle getVehicles() {
+
+		logger.info("/vehicles was called");
+		return null;
+	}
+
+	@Operation(summary = "Adds or changes a vehicle based on ID", tags = "Vehicles endpoints")
 	@PutMapping("/vehicle/{id}")
-	public PublicTransportVehicle addVehicleAndReturnId(
+	public Vehicle addVehicleAndReturnId(
 			@PathVariable(value = "id") final long id,
 			@RequestParam(value = "numberOfSeats", defaultValue = "25") final int numberOfSeats,
 			@RequestParam(value = "gasTank", defaultValue = "80") final int gasTank,
@@ -41,35 +53,70 @@ public class PublicTransportAPI {
 		return publicTransportController.addVehicleAndReturnId(id, numberOfSeats, gasTank, descriptionOfVehicle);
 	}
 
-	@Operation(summary = "Deletes a transport based on ID from the DB", tags = "Transport API endpoints")
+	@Operation(summary = "Deletes a vehicle based on ID", tags = "Vehicles endpoints")
 	@DeleteMapping("/vehicle/{id}")
-	public PublicTransportVehicle deleteVehicle(@PathVariable(value = "id") final long id) {
-
+	public Vehicle deleteVehicle(@PathVariable(value = "id") final long id) {
 
 		logger.info("/deleteTransportVehicle was called with id {}", id);
 		return null;
 	}
 
-	@Operation(summary = "Fetches details about a route based on ID stored in the DB", tags = "Routes API endpoints")
-	@GetMapping("/getRoute")
-	public Route getRouteById(@RequestParam(value = "id") final long id) {
+	@Operation(summary = "Retrieves information about all the routes", tags = "Routes endpoints")
+	@GetMapping("/routes")
+	public List<Route> getAllRoutes() {
+
+		return null;
+	}
+
+	@Operation(summary = "Fetches details about a route based on ID", tags = "Routes endpoints")
+	@GetMapping("/route/{id}")
+	public Route getRouteById(@PathVariable(value = "id") final long id) {
 
 		logger.info("/getRoute was called with id {}", id);
 		return routesController.getRouteById(id);
 	}
 
-	@Operation(summary = "Modifies details about a route", tags = "Routes API endpoints")
-	@PostMapping("/postRoute")
-	public Route modifyRoute(@RequestParam(value = "routeId") final long routeId,
-			@RequestParam(value = "vehId") final long vehId) {
+	@Operation(summary = "Adds or Modifies details about a route based on ID", tags = "Routes endpoints")
+	@PutMapping("/route/{id}")
+	public Route modifyRoute(@PathVariable(value = "id") final long id) {
 
-		logger.info("/postRoute was called with routeId {} and vehId {}", routeId, vehId);
-		return routesController.modifyRoute(routeId, vehId);
+		logger.info("/route was called with id {}", id);
+		return routesController.modifyRoute(id);
 	}
 
-	@Operation(summary = "Retrieves information about all the routes", tags = "Routes API endpoints")
-	@GetMapping("/routes")
-	public Route getAllRoutes() {
+	// The ids are separated by comma
+	@Operation(summary = "Fetches all the vehicles belonging to a route or multiple routes", tags = "Transport endpoints")
+	@GetMapping("/vehiclesOnRoute/{ids}")
+	public List<Vehicle> getVehiclesOnRoute(@PathVariable(value = "ids") final String ids) {
+
+		logger.info("/vehiclesOnRoute was called with ids {}", ids);
+		//to do move this into controller
+		final List<Long> listAsLongs = Arrays.stream(ids.split(",")).map(Long::valueOf).collect(Collectors.toList());
 		return null;
+	}
+
+	// The ids are separated by comma
+	@Operation(summary = "Fetches all the routes used by the specified vehicles", tags = "Transport endpoints")
+	@GetMapping("/routesUsedByVehicles/{ids}")
+	public List<Route> getRoutesUsedByVehicles(@PathVariable(value = "ids") final String ids) {
+
+		logger.info("/vehiclesOnRoute was called with ids {}", ids);
+		//to do move this into controller
+		final List<Long> listAsLongs = Arrays.stream(ids.split(",")).map(Long::valueOf).collect(Collectors.toList());
+		return null;
+	}
+
+	// todo
+	/**
+	 * Will modify the vehicles using a route (by id).
+	 * Will take ID of route and a LIST (JSON) of Vehicles (will match based on id)
+	 * and modify their information. Will probably return a 400 if specified vehicles aren't belonging to the route
+	 */
+	@Operation(summary = "Modifies vehicles on a route, or/and adds vehicles to a route", tags = "Transport endpoints")
+	@PostMapping("/vehiclesOnRoute/{id}")
+	public Route modifyRouteWithVehicles(@PathVariable(value = "id") final long id) {
+
+		logger.info("/route was called with id {}", id);
+		return routesController.modifyRoute(id);
 	}
 }

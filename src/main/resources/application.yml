@@ -1,0 +1,7 @@
+# https://springdoc.org/properties.html
+springdoc:
+  api-docs:
+    path: /transport-api
+
+  swagger-ui:
+    operationsSorter: "method"
