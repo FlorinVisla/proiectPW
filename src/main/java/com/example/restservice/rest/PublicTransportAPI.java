@@ -2,7 +2,7 @@ package com.example.restservice.rest;
 
 import com.example.restservice.rest.entity.Vehicle;
 import com.example.restservice.rest.entity.Route;
-import com.example.restservice.rest.controller.PublicTransportController;
+import com.example.restservice.rest.controller.VehiclesController;
 import com.example.restservice.rest.controller.RoutesController;
 import io.swagger.v3.oas.annotations.Operation;
 import org.slf4j.Logger;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class PublicTransportAPI {
 
 	@Autowired
-	private PublicTransportController publicTransportController;
+	private VehiclesController vehiclesController;
 
 	@Autowired
 	private RoutesController routesController;
@@ -30,7 +30,7 @@ public class PublicTransportAPI {
 	public Vehicle getVehicleById(@PathVariable(value = "id") final long id) {
 
 		logger.info("/Vehicle was called with id {}", id);
-		return publicTransportController.getVehicleById(id);
+		return vehiclesController.getVehicleById(id);
 	}
 
 	@Operation(summary = "Fetches details about all vehicles", tags = "Vehicles endpoints")
@@ -50,7 +50,7 @@ public class PublicTransportAPI {
 			@RequestParam(value = "descriptionOfVehicle", defaultValue = "") final String descriptionOfVehicle) {
 
 		logger.info("/putTransportVehicle was called with id {}", id);
-		return publicTransportController.addVehicleAndReturnId(id, numberOfSeats, gasTank, descriptionOfVehicle);
+		return vehiclesController.addVehicleAndReturnId(id, numberOfSeats, gasTank, descriptionOfVehicle);
 	}
 
 	@Operation(summary = "Deletes a vehicle based on ID", tags = "Vehicles endpoints")
@@ -64,14 +64,12 @@ public class PublicTransportAPI {
 	@Operation(summary = "Retrieves information about all the routes", tags = "Routes endpoints")
 	@GetMapping("/routes")
 	public List<Route> getAllRoutes() {
-
 		return null;
 	}
 
 	@Operation(summary = "Fetches details about a route based on ID", tags = "Routes endpoints")
 	@GetMapping("/route/{id}")
 	public Route getRouteById(@PathVariable(value = "id") final long id) {
-
 		logger.info("/getRoute was called with id {}", id);
 		return routesController.getRouteById(id);
 	}
@@ -79,14 +77,13 @@ public class PublicTransportAPI {
 	@Operation(summary = "Adds or Modifies details about a route based on ID", tags = "Routes endpoints")
 	@PutMapping("/route/{id}")
 	public Route modifyRoute(@PathVariable(value = "id") final long id) {
-
 		logger.info("/route was called with id {}", id);
 		return routesController.modifyRoute(id);
 	}
 
 	// The ids are separated by comma
 	@Operation(summary = "Fetches all the vehicles belonging to a route or multiple routes", tags = "Transport endpoints")
-	@GetMapping("/transport/vehicles{ids}")
+	@GetMapping("/transport/vehicles/{ids}")
 	public List<Vehicle> getVehiclesOnRoute(@PathVariable(value = "ids") final String ids) {
 
 		logger.info("/transport/vehicles was called with ids {}", ids);

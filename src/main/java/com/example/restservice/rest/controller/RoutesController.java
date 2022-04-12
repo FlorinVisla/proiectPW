@@ -1,17 +1,12 @@
 package com.example.restservice.rest.controller;
 
-import com.example.restservice.config.DbSimulator;
 import com.example.restservice.rest.entity.Route;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 @Controller
 public class RoutesController {
-
-    @Autowired
-    private DbSimulator dbSimulator;
 
     final Logger logger = LoggerFactory.getLogger(RoutesController.class);
 
@@ -20,7 +15,7 @@ public class RoutesController {
 		/*
 		Here we'll do the logic. For this example we'll probably read from the db
 		 */
-        return dbSimulator.getRoutes().stream().filter(e -> e.getId() == id).findAny().orElse(null);
+        return null;
     }
 
     public Route modifyRoute(final long routeId) {

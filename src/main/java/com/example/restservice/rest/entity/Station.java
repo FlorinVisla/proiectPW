@@ -4,11 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 public class Station {
-	private String locatie;
+
+	@Id
+	private long id;
+
+	private String location;
 }
