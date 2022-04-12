@@ -86,10 +86,10 @@ public class PublicTransportAPI {
 
 	// The ids are separated by comma
 	@Operation(summary = "Fetches all the vehicles belonging to a route or multiple routes", tags = "Transport endpoints")
-	@GetMapping("/vehiclesOnRoute/{ids}")
+	@GetMapping("/transport/vehicles{ids}")
 	public List<Vehicle> getVehiclesOnRoute(@PathVariable(value = "ids") final String ids) {
 
-		logger.info("/vehiclesOnRoute was called with ids {}", ids);
+		logger.info("/transport/vehicles was called with ids {}", ids);
 		//to do move this into controller
 		final List<Long> listAsLongs = Arrays.stream(ids.split(",")).map(Long::valueOf).collect(Collectors.toList());
 		return null;
@@ -97,10 +97,10 @@ public class PublicTransportAPI {
 
 	// The ids are separated by comma
 	@Operation(summary = "Fetches all the routes used by the specified vehicles", tags = "Transport endpoints")
-	@GetMapping("/routesUsedByVehicles/{ids}")
+	@GetMapping("/transport/routes/{ids}")
 	public List<Route> getRoutesUsedByVehicles(@PathVariable(value = "ids") final String ids) {
 
-		logger.info("/vehiclesOnRoute was called with ids {}", ids);
+		logger.info("/transport/routes/ was called with ids {}", ids);
 		//to do move this into controller
 		final List<Long> listAsLongs = Arrays.stream(ids.split(",")).map(Long::valueOf).collect(Collectors.toList());
 		return null;
@@ -113,10 +113,17 @@ public class PublicTransportAPI {
 	 * and modify their information. Will probably return a 400 if specified vehicles aren't belonging to the route
 	 */
 	@Operation(summary = "Modifies vehicles on a route, or/and adds vehicles to a route", tags = "Transport endpoints")
-	@PostMapping("/vehiclesOnRoute/{id}")
+	@PostMapping("/transport/vehicles/{id}")
 	public Route modifyRouteWithVehicles(@PathVariable(value = "id") final long id) {
 
-		logger.info("/route was called with id {}", id);
+		logger.info("/transport/vehicles/ was called with id {}", id);
 		return routesController.modifyRoute(id);
+	}
+
+	@Operation(summary = "Retrieves all information about the transport system (routes and vehicles)", tags = "Transport endpoints")
+	@GetMapping("/transport")
+	public Route getTransport() {
+		//get all info about the vehicles and routes
+		return null;
 	}
 }
