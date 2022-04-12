@@ -64,14 +64,12 @@ public class PublicTransportAPI {
 	@Operation(summary = "Retrieves information about all the routes", tags = "Routes endpoints")
 	@GetMapping("/routes")
 	public List<Route> getAllRoutes() {
-
 		return null;
 	}
 
 	@Operation(summary = "Fetches details about a route based on ID", tags = "Routes endpoints")
 	@GetMapping("/route/{id}")
 	public Route getRouteById(@PathVariable(value = "id") final long id) {
-
 		logger.info("/getRoute was called with id {}", id);
 		return routesController.getRouteById(id);
 	}
@@ -79,14 +77,13 @@ public class PublicTransportAPI {
 	@Operation(summary = "Adds or Modifies details about a route based on ID", tags = "Routes endpoints")
 	@PutMapping("/route/{id}")
 	public Route modifyRoute(@PathVariable(value = "id") final long id) {
-
 		logger.info("/route was called with id {}", id);
 		return routesController.modifyRoute(id);
 	}
 
 	// The ids are separated by comma
 	@Operation(summary = "Fetches all the vehicles belonging to a route or multiple routes", tags = "Transport endpoints")
-	@GetMapping("/transport/vehicles{ids}")
+	@GetMapping("/transport/vehicles/{ids}")
 	public List<Vehicle> getVehiclesOnRoute(@PathVariable(value = "ids") final String ids) {
 
 		logger.info("/transport/vehicles was called with ids {}", ids);
