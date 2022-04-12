@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
 
 import java.util.List;
 
@@ -13,7 +14,9 @@ import java.util.List;
 @Setter
 public class Route {
 
+	@Id
 	private long id;
+
 	private Station start;
 	private Station end;
 	private List<Station> stations;
