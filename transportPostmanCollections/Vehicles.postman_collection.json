@@ -1,0 +1,102 @@
+{
+	"info": {
+		"_postman_id": "7b2a394f-76b5-4415-839a-a8531c3d6e99",
+		"name": "Vehicles",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/vehicles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/vehicles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"vehicles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/vehicle/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/vehicle/235",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"vehicle",
+						"235"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/vehicle/{id}",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/vehicle/235?numberOfSeats=20&gasTank=60&descriptionOfVehicle=Asta%20e%20autobuzul%20meu%20favorit",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"vehicle",
+						"235"
+					],
+					"query": [
+						{
+							"key": "numberOfSeats",
+							"value": "20"
+						},
+						{
+							"key": "gasTank",
+							"value": "60"
+						},
+						{
+							"key": "descriptionOfVehicle",
+							"value": "Asta%20e%20autobuzul%20meu%20favorit"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/vehicle/{id}",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/vehicle/235",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"vehicle",
+						"235"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

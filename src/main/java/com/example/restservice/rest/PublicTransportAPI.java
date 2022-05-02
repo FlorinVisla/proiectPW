@@ -3,6 +3,7 @@ package com.example.restservice.rest;
 import com.example.restservice.rest.controller.StationsController;
 import com.example.restservice.rest.controller.TransportController;
 import com.example.restservice.rest.entity.Station;
+import com.example.restservice.rest.entity.TransportResponse;
 import com.example.restservice.rest.entity.TransportRoute;
 import com.example.restservice.rest.entity.Vehicle;
 import com.example.restservice.rest.entity.Route;
@@ -122,30 +123,19 @@ public class PublicTransportAPI {
 		return stationsController.deleteStation(id);
 	}
 
-	//todo
-	// The ids are separated by comma
-	@Operation(summary = "Fetches all the vehicles belonging to a route or multiple routes", tags = "Transport endpoints")
-	@GetMapping("/transport/vehicles/{ids}")
-	public List<Vehicle> getVehiclesOnRoute(@PathVariable(value = "ids") final String ids) {
-
-		return null;
-	}
-
-	//todo
-	// The ids are separated by comma
-	@Operation(summary = "Fetches all the routes used by the specified vehicles", tags = "Transport endpoints")
-	@GetMapping("/transport/routes/{ids}")
-	public List<TransportRoute> getRoutesUsedByVehicles(@PathVariable(value = "ids") final String ids) {
-
-		return transportController.getRoutesUsedByVehicles(ids);
-	}
-
 	@Operation(summary = "Modifies a transport route or adds a new one based on available routes", tags = "Transport endpoints")
 	@PutMapping("/transport/route/{id}")
 	public TransportRoute modifyTransportRoute(@PathVariable(value = "id") final String id,
 			@RequestParam(value = "stationsIds") final String stationsIds) {
 
 		return transportController.modifyTransportRoute(id, stationsIds);
+	}
+
+	@Operation(summary = "Retrieves a transport route information based on ID", tags = "Transport endpoints")
+	@GetMapping("/transport/route/{id}")
+	public TransportRoute getTransportRoute(@PathVariable(value = "id") final String id) {
+
+		return transportController.getTransportRoute(id);
 	}
 
 	@Operation(summary = "Adds vehicles to a transport route", tags = "Transport endpoints")
@@ -166,7 +156,7 @@ public class PublicTransportAPI {
 
 	@Operation(summary = "Retrieves all information about the transport system (routes and vehicles)", tags = "Transport endpoints")
 	@GetMapping("/transport")
-	public List<TransportRoute> getTransport() {
+	public TransportResponse getTransport() {
 
 		return transportController.getTransport();
 	}
