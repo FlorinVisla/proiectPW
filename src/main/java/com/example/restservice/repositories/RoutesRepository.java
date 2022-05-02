@@ -5,6 +5,4 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface RoutesRepository extends MongoRepository<Route, String> {
 
-    // example
-    Route findById(long id);
 }

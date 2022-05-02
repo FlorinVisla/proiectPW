@@ -1,0 +1,128 @@
+{
+	"info": {
+		"_postman_id": "7e790aa3-b98b-4b7f-a854-98acc49a338b",
+		"name": "Transport",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/transport/route/{id}",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/transport/route/3399?stationsIds=12,13,14",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"transport",
+						"route",
+						"3399"
+					],
+					"query": [
+						{
+							"key": "stationsIds",
+							"value": "12,13,14"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/transport",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/transport",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"transport"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/transport/route/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/transport",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"transport"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/transport/vehicle/{id}",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/transport/vehicle/3399?vehicleIds=135",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"transport",
+						"vehicle",
+						"3399"
+					],
+					"query": [
+						{
+							"key": "vehicleIds",
+							"value": "135"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/transport/vehicle/{id}",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/transport/vehicle/3399?vehicleIds=135,165",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"transport",
+						"vehicle",
+						"3399"
+					],
+					"query": [
+						{
+							"key": "vehicleIds",
+							"value": "135,165"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

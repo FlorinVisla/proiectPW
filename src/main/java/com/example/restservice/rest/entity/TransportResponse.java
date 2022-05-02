@@ -1,19 +1,20 @@
 package com.example.restservice.rest.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
 
+import java.util.List;
+
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Station {
+public class TransportResponse {
 
-	@Id
-	private String id;
-
-	private String location;
+    private List<TransportRoute> transportRoutes;
+    private List<Vehicle> unusedVehicles;
 }

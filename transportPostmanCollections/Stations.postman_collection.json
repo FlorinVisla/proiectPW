@@ -1,0 +1,94 @@
+{
+	"info": {
+		"_postman_id": "d8d1a88a-a2bd-4e99-93b2-b026664796b6",
+		"name": "Stations",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/route/stations",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/stations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/route/station/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/station/12",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"station",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/route/station/{id}",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/station/12?location=Baba Dokia",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"station",
+						"12"
+					],
+					"query": [
+						{
+							"key": "location",
+							"value": "Baba Dokia"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/route/station/{id}",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/station/12",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"station",
+						"12"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
