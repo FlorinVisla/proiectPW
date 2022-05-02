@@ -7,6 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import java.util.List;
+import java.util.Optional;
+
 @Controller
 public class VehiclesController {
 
@@ -15,21 +18,31 @@ public class VehiclesController {
 
     final Logger logger = LoggerFactory.getLogger(VehiclesController.class);
 
-    public Vehicle getVehicleById(final long id) {
-        return vehiclesRepository.findById(id);
+    public Vehicle getVehicleById(final String id) {
+        return vehiclesRepository.findById(id).orElse(null);
     }
 
-    public Vehicle addVehicleAndReturnId(final long id, final int numberOfSeats, final int gasTank,
+    public List<Vehicle> getVehicles() {
+        return vehiclesRepository.findAll();
+    }
+
+    public Vehicle modifyVehicle(final String id, final int numberOfSeats, final int gasTank,
             final String descriptionOfVehicle) {
-        final Vehicle vehicle = new Vehicle(id, numberOfSeats, gasTank, descriptionOfVehicle);
+        final Vehicle vehicle = vehiclesRepository.findById(id)
+                .orElse(new Vehicle());
+
+        vehicle.setId(id);
+        vehicle.setNumberOfSeats(numberOfSeats);
+        vehicle.setGasTank(gasTank);
+        vehicle.setDescriptionOfVehicle(descriptionOfVehicle);
+
         vehiclesRepository.save(vehicle);
         return vehicle;
     }
 
-    public Vehicle deleteVehicle(final long id) {
-		/*
-		Here we'll do the logic. For this example we'll probably put stuff in the db
-		 */
-        return null;
+    public Vehicle deleteVehicle(final String id) {
+        final Optional<Vehicle> vehicle = vehiclesRepository.findById(id);
+		vehiclesRepository.deleteById(id);
+        return vehicle.orElse(null);
     }
 }

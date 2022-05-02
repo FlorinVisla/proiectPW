@@ -13,7 +13,7 @@ import org.springframework.data.annotation.Id;
 public class Station {
 
 	@Id
-	private long id;
+	private String id;
 
 	private String location;
 }

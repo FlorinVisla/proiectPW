@@ -13,7 +13,7 @@ import org.springframework.data.annotation.Id;
 public class Vehicle {
 
 	@Id
-	private long id;
+	private String id;
 
 	private int numberOfSeats;
 	private int gasTank;
