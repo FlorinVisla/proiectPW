@@ -155,6 +155,7 @@ public class PublicTransportAPI {
 	}
 
 	@Operation(summary = "Retrieves all information about the transport system (routes and vehicles)", tags = "Transport endpoints")
+	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/transport")
 	public TransportResponse getTransport() {
 
