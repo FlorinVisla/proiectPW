@@ -96,9 +96,15 @@ public class TransportController {
     private void addVehiclesToRoute(final TransportRoute transportRoute, final List<Vehicle> dbVehicles) {
         final List<Vehicle> vehicles = transportRoute.getVehicles();
         dbVehicles.forEach(vehicle -> {
-            if (!vehicles.contains(vehicle)) {
+            if (!vehicles.contains(vehicle) && !vehicle.getInUse()) {
                 logger.info("The vehicle {} was added to {}", vehicle.getId(), transportRoute.getId());
+                vehicle.setInUse(Boolean.TRUE);
+                vehiclesRepository.save(vehicle);
                 vehicles.add(vehicle);
+            }
+            else {
+                throw new ResponseStatusException(HttpStatus.EXPECTATION_FAILED,
+                        "Vehicle used in another route", new WebServiceException());
             }
         });
     }
@@ -112,7 +118,14 @@ public class TransportController {
 
         final List<String> vehiclesToBeRemoved = Lists.newArrayList(vehicleIds.split(","));
 
+        //We need to modify them as they're not in use anymore.
+        final List<Vehicle> vehicles =
+                Lists.newArrayList(vehiclesRepository.findAllById(Arrays.stream(vehicleIds.split(",")).collect(Collectors.toList())));
+
         transportRoute.setVehicles(resolveVehiclesAfterDeletion(id, transportRoute, vehiclesToBeRemoved));
+
+        vehicles.forEach(veh -> veh.setInUse(Boolean.FALSE));
+        vehiclesRepository.saveAll(vehicles);
 
         transportRepository.save(transportRoute);
         return transportRoute;
@@ -143,13 +156,11 @@ public class TransportController {
 
     public TransportResponse getTransport() {
 
-        List<TransportRoute> transportRoutes = transportRepository.findAll();
-        List<Vehicle> dbVehicles = vehiclesRepository.findAll();
-        List<Vehicle> unasignedVehicles = Collections.emptyList();
-        for (final Vehicle vehicle : dbVehicles) {
-            unasignedVehicles = transportRoutes.stream().map(e -> !e.getVehicles().contains(vehicle) ? vehicle : null).filter(Objects::nonNull).collect(Collectors.toList());
-        }
-        return TransportResponse.builder().transportRoutes(transportRoutes).unusedVehicles(unasignedVehicles).build();
+        final List<TransportRoute> transportRoutes = transportRepository.findAll();
+        final List<Vehicle> dbVehicles = vehiclesRepository.findAll();
+        final List<Vehicle> distinctUnused = dbVehicles.stream().filter(veh -> !veh.getInUse()).collect(Collectors.toList());
+
+        return TransportResponse.builder().transportRoutes(transportRoutes).unusedVehicles(distinctUnused).build();
     }
 
     public TransportRoute getTransportRoute(final String id) {

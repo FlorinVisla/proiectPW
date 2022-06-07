@@ -1,5 +1,6 @@
 package com.example.restservice.rest.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,4 +19,7 @@ public class Vehicle {
 	private int numberOfSeats;
 	private int gasTank;
 	private String descriptionOfVehicle;
+
+	@JsonIgnore
+	private Boolean inUse = Boolean.FALSE;
 }
