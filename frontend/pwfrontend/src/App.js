@@ -1,6 +1,9 @@
 import './App.css';
 
 import Transport from './components/Transport';
+import Vehicles from './components/Vehicles';
+import Stations from './components/Stations';
+import Rute from './components/Rute';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas, faGasPump } from '@fortawesome/free-solid-svg-icons'
@@ -41,6 +44,12 @@ function App() {
                   renders the first one that matches the current URL. */}
               <Routes>
                 <Route path="/" element={<Transport/>}>
+                </Route>
+                <Route path="/Vehicles" element={<Vehicles/>}>
+                </Route>
+                <Route path="/Stations" element={<Stations/>}>
+                </Route>
+                <Route path="/Routes" element={<Rute/>}>
                 </Route>
               </Routes>
             </div>
