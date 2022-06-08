@@ -1,0 +1,409 @@
+openapi: 3.0.1
+info:
+  version: 1.0.0
+  title: Transport Management API
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+paths:
+  /vehicle/{id}:
+    get:
+      tags:
+        - Vehicles endpoints
+      summary: Fetches details about a vehicle based on ID
+      operationId: getVehicleById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+    put:
+      tags:
+        - Vehicles endpoints
+      summary: Adds or changes a vehicle based on ID
+      operationId: addVehicleAndReturnId
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: numberOfSeats
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 25
+        - name: gasTank
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 80
+        - name: descriptionOfVehicle
+          in: query
+          required: false
+          schema:
+            type: string
+            default: ''
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+    delete:
+      tags:
+        - Vehicles endpoints
+      summary: Deletes a vehicle based on ID
+      operationId: deleteVehicle
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+  /transport/route/{id}:
+    get:
+      tags:
+        - Transport endpoints
+      summary: Retrieves a transport route information based on ID
+      operationId: getTransportRoute
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TransportRoute'
+    put:
+      tags:
+        - Transport endpoints
+      summary: Modifies a transport route or adds a new one based on available routes
+      operationId: modifyTransportRoute
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: stationsIds
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TransportRoute'
+  /station/{id}:
+    get:
+      tags:
+        - Stops endpoints
+      summary: Fetches details about a stop(station) based on ID
+      operationId: getStationById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Station'
+    put:
+      tags:
+        - Stops endpoints
+      summary: Adds or Modifies details about a stop(station) based on ID
+      operationId: Add
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: location
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Station'
+    delete:
+      tags:
+        - Stops endpoints
+      summary: Deletes a stop(station)
+      operationId: deleteStationById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Station'
+  /route/{id}:
+    get:
+      tags:
+        - Routes endpoints
+      summary: Fetches details about a route based on ID
+      operationId: getRouteById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Route'
+    put:
+      tags:
+        - Routes endpoints
+      summary: Adds or Modifies details about a route based on ID
+      operationId: modifyRoute
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: description
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Route'
+    delete:
+      tags:
+        - Routes endpoints
+      summary: Deletes a route based on ID
+      operationId: deleteRoute
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Route'
+  /transport/vehicle/{id}:
+    post:
+      tags:
+        - Transport endpoints
+      summary: Adds vehicles to a transport route
+      operationId: addVehiclesToRoute
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: vehicleIds
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TransportRoute'
+    delete:
+      tags:
+        - Transport endpoints
+      summary: Removes vehicles from a transport route
+      operationId: removeVehiclesFromRoute
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: vehicleIds
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TransportRoute'
+  /vehicles:
+    get:
+      tags:
+        - Vehicles endpoints
+      summary: Fetches details about all vehicles
+      operationId: getVehicles
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vehicle'
+  /transport:
+    get:
+      tags:
+        - Transport endpoints
+      summary: Retrieves all information about the transport system (routes and vehicles)
+      operationId: getTransport
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TransportResponse'
+  /stations:
+    get:
+      tags:
+        - Stops endpoints
+      summary: Fetches details about all stops(stations)
+      operationId: getStations
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Station'
+  /routes:
+    get:
+      tags:
+        - Routes endpoints
+      summary: Retrieves information about all the routes
+      operationId: getAllRoutes
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Route'
+components:
+  schemas:
+    Vehicle:
+      type: object
+      properties:
+        id:
+          type: string
+        numberOfSeats:
+          type: integer
+          format: int32
+        gasTank:
+          type: integer
+          format: int32
+        descriptionOfVehicle:
+          type: string
+    Station:
+      type: object
+      properties:
+        id:
+          type: string
+        location:
+          type: string
+    TransportRoute:
+      type: object
+      properties:
+        id:
+          type: string
+        description:
+          type: string
+        start:
+          $ref: '#/components/schemas/Station'
+        end:
+          $ref: '#/components/schemas/Station'
+        stops:
+          type: array
+          items:
+            $ref: '#/components/schemas/Station'
+        vehicles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Vehicle'
+    Route:
+      type: object
+      properties:
+        id:
+          type: string
+        description:
+          type: string
+    TransportResponse:
+      type: object
+      properties:
+        transportRoutes:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransportRoute'
+        unusedVehicles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Vehicle'

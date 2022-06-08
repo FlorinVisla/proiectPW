@@ -1,6 +1,7 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-class MyComponent extends React.Component {
+class Transport extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -80,8 +81,8 @@ class MyComponent extends React.Component {
                           <div className='col-sm'>
                             {vehicle.descriptionOfVehicle}
                           </div>
-                          <div className='col-sm'>{vehicle.numberOfSeats}</div>
-                          <div className='col-sm'>{vehicle.gasTank}</div>
+                          <div className='col-sm'>{"Locuri: "}{vehicle.numberOfSeats} </div>
+                          <div className='col-sm'>{vehicle.gasTank} <FontAwesomeIcon icon="fa-solid fa-gas-pump" /></div>
                         </div>
                       </div>
                     </li>
@@ -102,8 +103,8 @@ class MyComponent extends React.Component {
                 <div className='container'>
                   <div className='row'>
                     <div className='col-sm'>{item.descriptionOfVehicle}</div>
-                    <div className='col-sm'>{item.numberOfSeats}</div>
-                    <div className='col-sm'>{item.gasTank}</div>
+                    <div className='col-sm'>{"Locuri: "}{item.numberOfSeats}</div>
+                    <div className='col-sm'>{"Capacitate rezervor: "}{item.gasTank}</div>
                   </div>
                 </div>
               </button>
@@ -115,4 +116,4 @@ class MyComponent extends React.Component {
   }
 }
 
-export default MyComponent;
+export default Transport;
